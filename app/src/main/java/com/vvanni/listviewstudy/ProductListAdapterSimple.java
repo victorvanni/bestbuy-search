@@ -1,5 +1,6 @@
 package com.vvanni.listviewstudy;
 
+import java.util.ArrayList;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +19,10 @@ import java.util.List;
  */
 public class ProductListAdapterSimple extends ArrayAdapter<Product> {
 
-    List<Product> mylist;
+    ArrayList<Product> mylist;
     private Context context;
 
-    public ProductListAdapterSimple(Context _context, List<Product> _mylist) {
+    public ProductListAdapterSimple(Context _context, ArrayList<Product> _mylist) {
         super(_context, R.layout.list_item, _mylist);
 
         this.context = _context;
@@ -38,9 +39,15 @@ public class ProductListAdapterSimple extends ArrayAdapter<Product> {
         // Product object
         Product product = getItem(position);
 
-        // TextView
+        // TextView Product name
         TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
         txtTitle.setText(product.name);
+
+        // TextView Product Price
+        TextView txtPrice = (TextView) convertView.findViewById(R.id.salePrice);
+        txtPrice.setText(" $");
+        txtPrice.append(String.valueOf(product.price));
+        txtPrice.append(" ");
 
         // Image
         ImageView img = (ImageView) convertView.findViewById(R.id.image);

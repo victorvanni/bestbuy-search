@@ -1,9 +1,12 @@
 package com.vvanni.listviewstudy;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -13,16 +16,16 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Renata on 14/02/2016.
  */
 public class BestBuySearch {
 
-    public List products;
+    public ArrayList<Product> products;
     public ListView lvProducts;
 
+    private static Activity mActivity;
     private static Context mCtx;
     private RequestQueue mQueue;
     private String rawJsonURL;
@@ -34,15 +37,12 @@ public class BestBuySearch {
     private int page;
     private JSONObject mResponse;
 
-    public BestBuySearch(Context context)
+    public BestBuySearch()
     {
-        mCtx = context;
-        mQueue = getRequestQueue();
-
         rawJsonURL = "https://api.bestbuy.com/v1/products(customerReviewCount>100"
                 + "&search=%search)?format=json&show=%show"
                 + "&sort=%sort&pageSize=%pageSize&page=1&apiKey=%apiKey";
-
+        search = "smartphone"; //just a test
         apiKey = "vhhepc7hsp89rbb9rbubxs6h";
         show = "sku,name,salePrice,image,largeImage";
         sort = "customerReviewAverage.dsc";
@@ -74,10 +74,6 @@ public class BestBuySearch {
 
     public String getApiKey(){return apiKey;}
 
-    public void setResponse(JSONObject response){mResponse = response;}
-
-    public JSONObject getResponse(){return mResponse;}
-
     public String getSearchURL()
     {//returns the JSON string from the URL requested
         return rawJsonURL.replace("%search", getSearch())
@@ -94,37 +90,6 @@ public class BestBuySearch {
             mQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
         }
         return mQueue;
-    }
-
-    public void setSearchResult()
-    {
-        String url = getSearchURL();
-        JSONObject jResult;
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>()
-                {
-                    @Override
-                    public void onResponse(JSONObject response)
-                    {//return response
-                        Log.d("Response", response.toString());
-                        //setResponse(response);
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error){
-                        Log.d("Error response", error.toString());
-                    }
-                }
-        );
-    }
-
-    public ArrayList<Product> productsFromJson(JSONObject jObj)
-    {
-        ArrayList<Product> products = new ArrayList<>();
-        
-        return products;
     }
 }
 

@@ -1,9 +1,11 @@
 package com.vvanni.listviewstudy;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
@@ -14,6 +16,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,47 +29,79 @@ public class ListActivity extends Activity {
 
     ArrayList<Product> products;
     ListView lvProducts;
-
-    ////List of array strings which will serve as list items
-    //ArrayList<String> listItems = new ArrayList<String>();
-
-    ////Defining a string adapter which will handle the data of the ListView
-    //ArrayAdapter<String> adapter;
-
-    ////Recording how many times the button has been clicked
-    //int clickCounter=0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+        final Context mContext = this;
+        lvProducts = (ListView) findViewById(R.id.lists_product);
+
+        final TextView tvSearchTitle = (TextView) findViewById(R.id.search_title);
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
         // populate data
-        products = new ArrayList<>();
-        products.add(new Product(
-                "Apple - iPhone 6 Plus 128GB - Space Gray (AT&T)",
-                899.98,
-                "http://images.bestbuy.com/BestBuy_US/images/products/7640/7640104_sa.jpg",
-                "http://images.bestbuy.com/BestBuy_US/images/products/7640/7640104_sb.jpg"));
-        products.add(new Product(
-                "Apple - iPhone 6 Plus 64GB - Gold (AT&T)",
-                799.98,
-                "http://images.bestbuy.com/BestBuy_US/images/products/7640/7640168_sa.jpg",
-                "http://images.bestbuy.com/BestBuy_US/images/products/7640/7640168_sb.jpg"));
-        products.add(new Product(
-                "Apple - iPhone 6 Plus 64GB - Silver (AT&T)",
-                799.98,
-                "http://images.bestbuy.com/BestBuy_US/images/products/7640/7640159_sa.jpg",
-                "http://images.bestbuy.com/BestBuy_US/images/products/7640/7640159_sb.jpg"));
-        products.add(new Product(
-                "Nest - Protect 2nd Generation (Battery) Smart Smoke/Carbon Monoxide Alarm - White",
-                99.99,
-                "http://img.bbystatic.com/BestBuy_US/images/products/8077/8077101_rc.jpg",
-                "http://img.bbystatic.com/BestBuy_US/images/products/8077/8077101_rb.jpg"));
+        bbSearch = new BestBuySearch();
+        String url = bbSearch.getSearchURL();
 
-        lvProducts = (ListView) findViewById(R.id.lists_product);
-        lvProducts.setAdapter(new ProductListAdapterSimple(this, products));
+        Log.d("STATE", "url == " + url);
+
+        Log.d("STATE", "starting to populate data");
+
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response)
+                    {//return response
+                        Log.d("Response", response.toString());
+                        try {
+                            JSONArray jArr;
+
+                            jArr = response.getJSONArray("products");
+                            products = productsFromJson(jArr);
+                            tvSearchTitle.append("\n"
+                                    + response.getInt("from") + " to "
+                                    + response.getInt("to") + "/"
+                                    + response.getInt("total"));
+                            lvProducts.setAdapter(new ProductListAdapterSimple(mContext, products));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        Log.d("Error response", error.toString());
+                    }
+                }
+        );
+        Log.d("STATE", "ending of populating data");
+        queue.add(getRequest);
+    }
+
+
+    public ArrayList<Product> productsFromJson(JSONArray jArr)
+    {//feeds a product list by an JSON Array
+        ArrayList<Product> products = new ArrayList<>();
+        JSONObject jObj = new JSONObject();
+
+        for (int i = 0; i < jArr.length(); i++)
+        {
+            try {
+                jObj = jArr.getJSONObject(i);
+                products.add(new Product(
+                        jObj.getString("name"),
+                        jObj.getDouble("salePrice"),
+                        jObj.getString("image"),
+                        jObj.getString("largeImage")));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }//(String _name, double _price, String _img_url_small, String _img_url_big)
+
+        return products;
     }
 }
