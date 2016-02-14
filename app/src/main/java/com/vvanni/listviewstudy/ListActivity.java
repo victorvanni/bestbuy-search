@@ -7,12 +7,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListActivity extends Activity {
 
-    List products;
+    BestBuySearch bbSearch;
+
+    ArrayList<Product> products;
     ListView lvProducts;
 
     ////List of array strings which will serve as list items
@@ -28,20 +37,11 @@ public class ListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        //if (adapter == null) {
-        //    adapter = new ArrayAdapter<String>(this,
-        //            android.R.layout.simple_list_item_1,
-        //            listItems);
-        //    setListAdapter(adapter);
-        //}
 
-        //public String name;
-        //public double price;
-        //public String img_url_small;
-        //public String img_url_big;
+        RequestQueue queue = Volley.newRequestQueue(this);
 
         // populate data
-        products = new ArrayList();
+        products = new ArrayList<>();
         products.add(new Product(
                 "Apple - iPhone 6 Plus 128GB - Space Gray (AT&T)",
                 899.98,
@@ -66,11 +66,4 @@ public class ListActivity extends Activity {
         lvProducts = (ListView) findViewById(R.id.lists_product);
         lvProducts.setAdapter(new ProductListAdapterSimple(this, products));
     }
-
-    //Method which will handle dynamic insertion
-    //public void addItems(View v)
-    //{
-    //    listItems.add("Clicked : " + clickCounter++);
-    //    adapter.notifyDataSetChanged();
-    //}
 }
