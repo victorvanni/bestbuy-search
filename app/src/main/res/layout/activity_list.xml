@@ -5,6 +5,16 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
+    <TextView
+        android:id="@+id/search_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="24dp"
+        android:background="#444444"
+        android:textColor="#CCCCCC"
+        android:text="Searching for 'smartphone'"/>
+
     <ListView
         android:id="@+id/lists_product"
         android:layout_width="fill_parent"
