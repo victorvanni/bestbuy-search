@@ -1,5 +1,6 @@
 package com.vvanni.listviewstudy;
 
+import android.app.Activity;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +10,7 @@ import android.widget.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListActivity extends android.app.ListActivity {
+public class ListActivity extends Activity {
 
     List products;
     ListView lvProducts;
