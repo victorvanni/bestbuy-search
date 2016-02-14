@@ -9,6 +9,8 @@ import android.widget.*;
 //import android.widget.ImageView;
 //import android.widget.LinearLayout;
 //import android.widget.TextView;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 /**
@@ -17,10 +19,12 @@ import java.util.List;
 public class ProductListAdapterSimple extends ArrayAdapter<Product> {
 
     List<Product> mylist;
+    private Context context;
 
     public ProductListAdapterSimple(Context _context, List<Product> _mylist) {
         super(_context, R.layout.list_item, _mylist);
 
+        this.context = _context;
         this.mylist = _mylist;
     }
 
@@ -41,7 +45,10 @@ public class ProductListAdapterSimple extends ArrayAdapter<Product> {
         // Image
         ImageView img = (ImageView) convertView.findViewById(R.id.image);
 
-        // Download Image (with cache)
+        // Download Image via Picasso
+        Picasso.with(this.context)
+                .load(product.img_url_small)
+                .into(img);
         //ImageDownloader imageDownloader = new ImageDownloader();
         //imageDownloader.download(product.img_url_small, img);
 
