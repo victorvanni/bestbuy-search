@@ -34,6 +34,7 @@ public class MainActivity extends ListActivity {
 
     private BestBuySearch bbSearch;
 
+    private int nOfResults;
     //------from abstract------
     protected static final int PAGESIZE = 10;
 
@@ -102,11 +103,12 @@ public class MainActivity extends ListActivity {
             }
 
             bbSearch.setSearch(search);
-            bbSearch.setPage(offset);
+            bbSearch.setPage(getCurrentPage());
             bbSearch.setPageSize(PAGESIZE);
 
             try{
                 jObj = bbSearch.getApiSearch();
+                nOfResults = jObj.getInt("total");
                 //Thread.sleep(100);
                 jArr = jObj.getJSONArray("products");
                 products = productsFromJson(jArr);
@@ -137,86 +139,85 @@ public class MainActivity extends ListActivity {
 
         }
 
-        protected void updateDisplayingTextView()
-        {
-            String text = getString(R.string.displayshort);
-            text = String.format(text, Math.min(products.size(), offset + 1),
-                    Math.min(offset + PAGESIZE, products.size()), products.size());
-            textViewHeader.setText(text);
-            updateButtons();
-            progressBar.setVisibility(View.INVISIBLE);
+
+    }
+
+    protected void updateDisplayingTextView()
+    {
+        String text = getString(R.string.displayshort);
+        text = String.format(text, Math.min(nOfResults, offset + 1),
+                Math.min(offset + PAGESIZE, nOfResults), nOfResults);
+        textViewHeader.setText(text);
+        updateButtons();
+        progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    private void updateButtons()
+    {
+        if (getCurrentPage() > 1) {
+            first.setEnabled(true);
+            prev.setEnabled(true);
+        } else {
+            first.setEnabled(false);
+            prev.setEnabled(false);
+        }
+        if (getCurrentPage() < getLastPage()) {
+            next.setEnabled(true);
+            last.setEnabled(true);
+        } else {
+            next.setEnabled(false);
+            last.setEnabled(false);
         }
 
-        private void updateButtons()
+    }
+
+    private int getLastPage()
+    {
+        return (int) (Math.ceil((float) nOfResults / PAGESIZE));
+    }
+
+    private int getCurrentPage()
+    {
+        return (int) (Math.ceil((float) (offset + 1) / PAGESIZE));
+    }
+
+    /******************** BUTTONS *************************/
+
+    public void first(View v)
+    {
+        if (!loading)
         {
-            if (getCurrentPage() > 1) {
-                first.setEnabled(true);
-                prev.setEnabled(true);
-            } else {
-                first.setEnabled(false);
-                prev.setEnabled(false);
-            }
-            if (getCurrentPage() < getLastPage()) {
-                next.setEnabled(true);
-                last.setEnabled(true);
-            } else {
-                next.setEnabled(false);
-                last.setEnabled(false);
-            }
-
-        }
-
-        private int getLastPage()
-        {
-            return (int) (Math.ceil((float) products.size() / PAGESIZE));
-        }
-
-        private int getCurrentPage()
-        {
-            return (int) (Math.ceil((float) (offset + 1) / PAGESIZE));
-        }
-
-        /******************** BUTTONS *************************/
-
-        public void first(View v)
-        {
-            if (!loading)
-            {
-                offset = 0;
-                (new LoadNextPage()).execute();
-            }
-        }
-
-        public void next(View v)
-        {
-            if (!loading)
-            {
-                offset = getCurrentPage() * PAGESIZE;
-                (new LoadNextPage()).execute();
-            }
-        }
-
-        public void previous(View v)
-        {
-            if (!loading)
-            {
-                offset = (getCurrentPage() - 2) * PAGESIZE;
-                (new LoadNextPage()).execute();
-            }
-        }
-
-        public void last(View v)
-        {
-            if (!loading)
-            {
-                offset = (getLastPage() - 1) * PAGESIZE;
-                (new LoadNextPage()).execute();
-            }
+            offset = 0;
+            (new LoadNextPage()).execute();
         }
     }
 
+    public void next(View v)
+    {
+        if (!loading)
+        {
+            offset = getCurrentPage() * PAGESIZE;
+            (new LoadNextPage()).execute();
+        }
+    }
 
+    public void previous(View v)
+    {
+        if (!loading)
+        {
+            offset = (getCurrentPage() - 2) * PAGESIZE;
+            (new LoadNextPage()).execute();
+        }
+    }
 
+    public void last(View v)
+    {
+        if (!loading)
+        {
+            offset = (getLastPage() - 1) * PAGESIZE;
+            (new LoadNextPage()).execute();
+        }
+    }
 
     public ArrayList<Product> productsFromJson(JSONArray jArr)
     {//feeds a product list by an JSON Array

@@ -46,7 +46,7 @@ public class BestBuySearch {
     {
         rawJsonURL = "https://api.bestbuy.com/v1/products(customerReviewCount>100"
                 + "&search=%search)?format=json&show=%show"
-                + "&sort=%sort&pageSize=%pageSize&page=1&apiKey=%apiKey";
+                + "&sort=%sort&pageSize=%pageSize&page=%pageNum&apiKey=%apiKey";
         search = "smartphone"; //just a test
         apiKey = "vhhepc7hsp89rbb9rbubxs6h";
         show = "sku,name,salePrice,image,largeImage";
@@ -85,6 +85,7 @@ public class BestBuySearch {
                 .replace("%show", getShow())
                 .replace("%sort", getSort())
                 .replace("%pageSize", String.valueOf(getPageSize()))
+                .replace("%pageNum", String.valueOf(getPage()))
                 .replace("%apiKey", getApiKey());
     }
 

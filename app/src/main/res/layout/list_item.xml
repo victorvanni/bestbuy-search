@@ -16,6 +16,8 @@
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textAlignment="center"/>
 
@@ -23,8 +25,10 @@
         android:id="@+id/salePrice"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
         android:textColor="#DD3333"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:gravity="center"/>
 
 </LinearLayout>

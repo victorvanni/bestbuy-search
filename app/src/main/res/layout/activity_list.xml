@@ -11,67 +11,6 @@
         android:layout_height="fill_parent"
         android:layout_below="@+id/buttonfirst"/>
 
-    <Button
-        android:id="@+id/buttonfirst"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="#444444"
-        android:enabled="false"
-        android:onClick="first"
-        android:text="@string/first" />
-
-    <Button
-        android:id="@+id/buttonprev"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/buttonfirst"
-        android:layout_toEndOf="@+id/buttonfirst"
-        android:background="#444444"
-        android:enabled="false"
-        android:onClick="previous"
-        android:text="@string/previous" />
-
-    <Button
-        android:id="@+id/buttonlast"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:background="#444444"
-        android:enabled="false"
-        android:onClick="last"
-        android:text="@string/last" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/header"
-        android:layout_centerHorizontal="true"
-        android:indeterminateOnly="true" />
-
-    <Button
-        android:id="@+id/buttonnext"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/buttonlast"
-        android:layout_toStartOf="@+id/buttonlast"
-        android:background="#444444"
-        android:enabled="false"
-        android:onClick="next"
-        android:text="@string/next" />
-
     <TextView
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -86,6 +25,71 @@
         android:textSize="20sp"
         android:background="#444444"
         android:textColor="#CCCCCC"/>
+
+    <Button
+        android:id="@+id/buttonfirst"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:textColor = "@color/btn_selector"
+        android:background="#444444"
+        android:enabled="false"
+        android:onClick="first"
+        android:text="@string/first" />
+
+    <Button
+        android:id="@+id/buttonprev"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/buttonfirst"
+        android:layout_toEndOf="@+id/buttonfirst"
+        android:textColor = "@color/btn_selector"
+        android:background="#444444"
+        android:enabled="false"
+        android:onClick="previous"
+        android:text="@string/previous" />
+
+    <Button
+        android:id="@+id/buttonlast"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:textColor = "@color/btn_selector"
+        android:background="#444444"
+        android:enabled="false"
+        android:onClick="last"
+        android:text="@string/last" />
+
+    <Button
+        android:id="@+id/buttonnext"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/buttonlast"
+        android:layout_toStartOf="@+id/buttonlast"
+        android:textColor = "@color/btn_selector"
+        android:background="#444444"
+        android:enabled="false"
+        android:onClick="next"
+        android:text="@string/next" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header"
+        android:layout_centerHorizontal="true"
+        android:indeterminateOnly="true" />
 
 
 
