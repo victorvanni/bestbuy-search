@@ -30,7 +30,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends ListActivity implements AdapterView.OnItemClickListener {
 
     private BestBuySearch bbSearch;
 
@@ -75,8 +75,19 @@ public class MainActivity extends ListActivity {
         bbSearch = new BestBuySearch();
 
         setListAdapter(new ProductListAdapter(this, new ArrayList<Product>()));
+        getListView().setOnItemClickListener(this);
+
 
         (new LoadNextPage()).execute();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+        // TODO Auto-generated method stub
+        String item = adapter.getItemAtPosition(position).toString();
+        //id is the row that I'm working on, also, the position of product in products.get(id)
+        //Toast.makeText(MainActivity.this, "CLICK: " + item + " " + id, Toast.LENGTH_SHORT).show();
+
     }
 
     private class LoadNextPage extends AsyncTask<String, Void, String>
@@ -136,10 +147,7 @@ public class MainActivity extends ListActivity {
             updateDisplayingTextView();
 
             loading = false;
-
         }
-
-
     }
 
     protected void updateDisplayingTextView()
@@ -229,6 +237,7 @@ public class MainActivity extends ListActivity {
             try {
                 jObj = jArr.getJSONObject(i);
                 products.add(new Product(
+                        jObj.getInt("sku"),
                         jObj.getString("name"),
                         jObj.getDouble("salePrice"),
                         jObj.getString("image"),
