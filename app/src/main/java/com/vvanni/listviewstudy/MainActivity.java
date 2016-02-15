@@ -90,7 +90,7 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
         Intent intent = new Intent(this, FullItemActivity.class);
         intent.putExtra("product_sku", products.get((int)id).sku);
         intent.putExtra("product_name", products.get((int)id).name);
-        intent.putExtra("product_img", products.get((int)id).img_url_big);
+        intent.putExtra("product_img", products.get((int)id).img_url_small);
         intent.putExtra("product_price", products.get((int)id).price);
         intent.putExtra("product_descript", products.get((int)id).descript);
         startActivity(intent);

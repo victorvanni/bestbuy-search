@@ -63,7 +63,7 @@ public class BestBuySearch {
     public void setDescript(String _descript){search = _descript;}
 
     public String getDescript(){return descript;}
-    
+
     public void setShow(String _show){show = _show;}
 
     public String getShow(){return show;}

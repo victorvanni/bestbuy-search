@@ -39,6 +39,9 @@ public class FullItemActivity extends Activity {
         Double price = intent.getDoubleExtra("product_price", 0.00);
         String descript = intent.getStringExtra("product_descript");
 
+        if(descript == "null")
+            descript = "No description";
+
         TextView tvName = (TextView) findViewById(R.id.pop_name);
         TextView tvPrice = (TextView) findViewById(R.id.pop_price);
         TextView tvDescript = (TextView) findViewById(R.id.pop_description);
