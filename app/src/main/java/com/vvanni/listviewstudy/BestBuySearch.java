@@ -38,6 +38,7 @@ public class BestBuySearch {
     private String apiKey;
     private String show;
     private String sort;
+    private String descript;
     private int pageSize;
     private int page;
     private JSONObject mResponse;
@@ -49,7 +50,7 @@ public class BestBuySearch {
                 + "&sort=%sort&pageSize=%pageSize&page=%pageNum&apiKey=%apiKey";
         search = "smartphone"; //just a test
         apiKey = "vhhepc7hsp89rbb9rbubxs6h";
-        show = "sku,name,salePrice,image,largeImage";
+        show = "sku,name,salePrice,image,largeImage,description";
         sort = "customerReviewAverage.dsc";
         pageSize = 10;
         page = 1;
@@ -59,6 +60,10 @@ public class BestBuySearch {
 
     public String getSearch(){return search;}
 
+    public void setDescript(String _descript){search = _descript;}
+
+    public String getDescript(){return descript;}
+    
     public void setShow(String _show){show = _show;}
 
     public String getShow(){return show;}
