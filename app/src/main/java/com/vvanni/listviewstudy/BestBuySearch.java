@@ -88,12 +88,8 @@ public class BestBuySearch {
                 .replace("%apiKey", getApiKey());
     }
 
-    public JSONObject getApiSearch(String mSearch, int mPageSize, int mPage)
+    public JSONObject getApiSearch()
     {
-        this.setPage(mPage);
-        this.setPageSize(mPageSize);
-        this.setSearch(mSearch);
-
         String link = getSearchURL();
         URL url;
         HttpURLConnection urlConnection = null;

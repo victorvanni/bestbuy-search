@@ -21,6 +21,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,61 +70,12 @@ public class MainActivity extends ListActivity {
         prev = (Button) findViewById(R.id.buttonprev);
         next = (Button) findViewById(R.id.buttonnext);
         last = (Button) findViewById(R.id.buttonlast);
-        products = new ArrayList<>(); //equivalent to Datasource.getInstance();
-        //datasource = Datasource.getInstance();
+        products = new ArrayList<>();
+        bbSearch = new BestBuySearch();
 
         setListAdapter(new ProductListAdapter(this, new ArrayList<Product>()));
 
         (new LoadNextPage()).execute();
-    /*{
-        final Context mContext = this;
-        lvProducts = (ListView) findViewById(R.id.list_product);
-
-        //I should change the txtHeader further appearance
-        //final TextView txtHeader = (TextView) findViewById(R.id.header);
-
-        RequestQueue queue = Volley.newRequestQueue(this);
-
-        // populate data
-        bbSearch = new BestBuySearch();
-        String url = bbSearch.getSearchURL();
-
-        Log.d("STATE", "url == " + url);
-
-        Log.d("STATE", "starting to populate data");
-
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>()
-                {
-                    @Override
-                    public void onResponse(JSONObject response)
-                    {//return response
-                        Log.d("Response", response.toString());
-                        try {
-                            JSONArray jArr;
-
-                            jArr = response.getJSONArray("products");
-                            products = productsFromJson(jArr);
-//                            txtHeader.append("\nDisplaying "
-//                                    + response.getInt("from") + " - "
-//                                    + response.getInt("to") + " of "
-//                                    + response.getInt("total"));
-                            lvProducts.setAdapter(new ProductListAdapterSimple(mContext, products));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error){
-                        Log.d("Error response", error.toString());
-                    }
-                }
-        );
-        Log.d("STATE", "ending of populating data");
-        queue.add(getRequest);*/
     }
 
     private class LoadNextPage extends AsyncTask<String, Void, String>
@@ -144,13 +101,20 @@ public class MainActivity extends ListActivity {
                 Log.e("PagingButtons", e.getMessage());
             }
 
+            bbSearch.setSearch(search);
+            bbSearch.setPage(offset);
+            bbSearch.setPageSize(PAGESIZE);
+
             try{
-                jObj = bbSearch.getApiSearch(search, offset, PAGESIZE);
+                jObj = bbSearch.getApiSearch();
+                //Thread.sleep(100);
                 jArr = jObj.getJSONArray("products");
                 products = productsFromJson(jArr);
             } catch (JSONException e) {
                 Log.e("JSON", e.toString());
-            }
+            } //catch (InterruptedException e) {
+              //  Log.e("WAIT", e.getMessage());
+            //}
 
             return null;
         }
@@ -276,3 +240,4 @@ public class MainActivity extends ListActivity {
         return products;
     }
 }
+
