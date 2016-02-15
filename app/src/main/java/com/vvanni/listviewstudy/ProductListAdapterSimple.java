@@ -1,16 +1,17 @@
 package com.vvanni.listviewstudy;
 
+
 import java.util.ArrayList;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-//import android.widget.ArrayAdapter;
 //import android.widget.ImageView;
 //import android.widget.LinearLayout;
-//import android.widget.TextView;
+import android.widget.TextView;
 import com.squareup.picasso.Picasso;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 
 import java.util.List;
 
@@ -40,8 +41,8 @@ public class ProductListAdapterSimple extends ArrayAdapter<Product> {
         Product product = getItem(position);
 
         // TextView Product name
-        TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
-        txtTitle.setText(product.name);
+        TextView txtName = (TextView) convertView.findViewById(R.id.name);
+        txtName.setText(product.name);
 
         // TextView Product Price
         TextView txtPrice = (TextView) convertView.findViewById(R.id.salePrice);

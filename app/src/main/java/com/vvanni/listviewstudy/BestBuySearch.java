@@ -15,6 +15,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.*;
 import java.util.ArrayList;
 
 /**
@@ -23,10 +29,9 @@ import java.util.ArrayList;
 public class BestBuySearch {
 
     public ArrayList<Product> products;
-    public ListView lvProducts;
 
-    private static Activity mActivity;
-    private static Context mCtx;
+    //private static Activity mActivity;
+    //private static Context mCtx;
     private RequestQueue mQueue;
     private String rawJsonURL;
     private String search;
@@ -83,13 +88,61 @@ public class BestBuySearch {
                 .replace("%apiKey", getApiKey());
     }
 
-    public RequestQueue getRequestQueue()
+    public JSONObject getApiSearch(String mSearch, int mPageSize, int mPage)
     {
-        if (mQueue == null) {
-            // if the queue isn't setted, it gets from the app context
-            mQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
+        this.setPage(mPage);
+        this.setPageSize(mPageSize);
+        this.setSearch(mSearch);
+
+        String link = getSearchURL();
+        URL url;
+        HttpURLConnection urlConnection = null;
+        JSONObject response = new JSONObject();
+
+        try {
+            url = new URL(link);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            int responseCode = urlConnection.getResponseCode();
+
+            if(responseCode == HttpURLConnection.HTTP_OK){
+                String responseString = readStream(urlConnection.getInputStream());
+                Log.v("CatalogClient", responseString);
+                response = new JSONObject(responseString);
+            }else{
+                Log.v("CatalogClient", "Response code:"+ responseCode);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(urlConnection != null)
+                urlConnection.disconnect();
         }
-        return mQueue;
+
+        return response;
+    }
+
+    private String readStream(InputStream in) {
+        BufferedReader reader = null;
+        StringBuffer response = new StringBuffer();
+        try {
+            reader = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return response.toString();
     }
 }
 
