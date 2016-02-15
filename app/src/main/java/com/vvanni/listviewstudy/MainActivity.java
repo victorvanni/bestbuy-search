@@ -2,6 +2,7 @@ package com.vvanni.listviewstudy;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -77,7 +78,6 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
         setListAdapter(new ProductListAdapter(this, new ArrayList<Product>()));
         getListView().setOnItemClickListener(this);
 
-
         (new LoadNextPage()).execute();
     }
 
@@ -87,6 +87,13 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
         String item = adapter.getItemAtPosition(position).toString();
         //id is the row that I'm working on, also, the position of product in products.get(id)
         //Toast.makeText(MainActivity.this, "CLICK: " + item + " " + id, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, FullItemActivity.class);
+        intent.putExtra("product_sku", products.get((int)id).sku);
+        intent.putExtra("product_name", products.get((int)id).name);
+        intent.putExtra("product_img", products.get((int)id).img_url_big);
+        intent.putExtra("product_price", products.get((int)id).price);
+        intent.putExtra("product_descript", products.get((int)id).descript);
+        startActivity(intent);
 
     }
 
@@ -241,7 +248,8 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
                         jObj.getString("name"),
                         jObj.getDouble("salePrice"),
                         jObj.getString("image"),
-                        jObj.getString("largeImage")));
+                        jObj.getString("largeImage"),
+                        jObj.getString("description")));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

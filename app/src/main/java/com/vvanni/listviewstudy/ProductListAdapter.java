@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -59,8 +58,6 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
 
         //populate holder
         holder.name.setText(row.name);
-        //holder.name.append("\n");
-        //holder.name.append(Html.fromHtml("<small>(sku: " + row.sku + ")</small>"));
         holder.price.setText("$");
         holder.price.append(String.valueOf(row.price));
         // Download Image via Picasso
