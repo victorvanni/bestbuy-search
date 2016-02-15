@@ -50,7 +50,7 @@ public class BestBuySearch {
                 + "&sort=%sort&pageSize=%pageSize&page=%pageNum&apiKey=%apiKey";
         search = "smartphone"; //just a test
         apiKey = "vhhepc7hsp89rbb9rbubxs6h";
-        show = "sku,name,salePrice,image,largeImage,description";
+        show = "sku,name,salePrice,image,largeImage,longDescription,shortDescription";
         sort = "customerReviewAverage.dsc";
         pageSize = 10;
         page = 1;

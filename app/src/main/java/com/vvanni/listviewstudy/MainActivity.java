@@ -256,7 +256,7 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
                         jObj.getDouble("salePrice"),
                         jObj.getString("image"),
                         jObj.getString("largeImage"),
-                        jObj.getString("description")));
+                        jObj.getString("longDescription")));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -3,6 +3,7 @@ package com.vvanni.listviewstudy;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ public class FullItemActivity extends Activity {
         tvPrice.setText("$");
         tvPrice.append(String.valueOf(price));
         tvDescript.setText(descript);
+        tvDescript.setMovementMethod(new ScrollingMovementMethod());
 
         Picasso.with(this)
                 .load(imgUrl)
