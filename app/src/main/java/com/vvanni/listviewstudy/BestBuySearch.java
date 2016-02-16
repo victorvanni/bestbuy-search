@@ -28,10 +28,8 @@ import java.util.ArrayList;
  */
 public class BestBuySearch {
 
+    //attributes necessary to buld the search url
     public ArrayList<Product> products;
-
-    //private static Activity mActivity;
-    //private static Context mCtx;
     private RequestQueue mQueue;
     private String rawJsonURL;
     private String search;
@@ -43,6 +41,7 @@ public class BestBuySearch {
     private int page;
     private JSONObject mResponse;
 
+    //basic constructor feeding the variables with basic informations
     public BestBuySearch()
     {
         rawJsonURL = "https://api.bestbuy.com/v1/products(customerReviewCount>100"
@@ -56,6 +55,7 @@ public class BestBuySearch {
         page = 1;
     }
 
+    //getters and setters
     public void setSearch(String _search){search = _search;}
 
     public String getSearch(){return search;}
@@ -84,9 +84,16 @@ public class BestBuySearch {
 
     public String getApiKey(){return apiKey;}
 
+    //returns the search URL builded with some string formats to avoid multiple spaces
     public String getSearchURL()
     {//returns the JSON string from the URL requested
-        return rawJsonURL.replace("%search", getSearch())
+        //Some string treatments to allow search with multiple spaces before, after and between
+        //with multiple words
+        String auxSearch = getSearch();
+        auxSearch = auxSearch.trim();
+        auxSearch = auxSearch.replaceAll(" ", "&search=");
+        auxSearch = auxSearch.replaceAll("\\s+", " ");
+        return rawJsonURL.replace("%search", auxSearch)
                 .replace("%show", getShow())
                 .replace("%sort", getSort())
                 .replace("%pageSize", String.valueOf(getPageSize()))
@@ -94,6 +101,7 @@ public class BestBuySearch {
                 .replace("%apiKey", getApiKey());
     }
 
+    //HTTP GET by urlConnection
     public JSONObject getApiSearch()
     {
         String link = getSearchURL();
@@ -102,10 +110,12 @@ public class BestBuySearch {
         JSONObject response = new JSONObject();
 
         try {
+            //try to connect
             url = new URL(link);
             urlConnection = (HttpURLConnection) url.openConnection();
             int responseCode = urlConnection.getResponseCode();
 
+            //if the connection was succesfull get the whole stream into a response string
             if(responseCode == HttpURLConnection.HTTP_OK){
                 String responseString = readStream(urlConnection.getInputStream());
                 Log.v("CatalogClient", responseString);
@@ -124,6 +134,7 @@ public class BestBuySearch {
         return response;
     }
 
+    //reads the results of HTTP GET
     private String readStream(InputStream in) {
         BufferedReader reader = null;
         StringBuffer response = new StringBuffer();

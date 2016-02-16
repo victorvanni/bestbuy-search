@@ -6,4 +6,5 @@
     <string name="first">&lt;&lt;</string>
     <string name="displayshort">%1$s - %2$s of %3$s</string>
     <string name="img_prod">Image of the product</string>
+    <string name="button_search">Search</string>
 </resources>

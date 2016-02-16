@@ -24,6 +24,11 @@
             android:theme="@style/AppTheme.PopupTheme">
 
         </activity>
+
+        <activity android:name=".SearchActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

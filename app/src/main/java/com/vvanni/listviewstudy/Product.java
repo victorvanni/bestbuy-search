@@ -4,11 +4,10 @@ import android.net.ConnectivityManager;
 
 import java.util.List;
 
-/**
- * Created by Renata on 14/02/2016.
- */
+//Simple class just to hold the values of a product, without any method but the constructor
 public class Product {
 
+    //some basic values that we need
     public int sku;
     public String name;
     public double price;
