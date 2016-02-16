@@ -1,4 +1,4 @@
-package com.vvanni.listviewstudy;
+package com.vvanni.bestbuysearch;
 
 import android.app.Activity;
 import android.content.Intent;

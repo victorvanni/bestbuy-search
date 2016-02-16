@@ -1,4 +1,4 @@
-package com.vvanni.listviewstudy;
+package com.vvanni.bestbuysearch;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

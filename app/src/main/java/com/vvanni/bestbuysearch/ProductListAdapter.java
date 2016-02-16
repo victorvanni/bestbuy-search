@@ -1,4 +1,4 @@
-package com.vvanni.listviewstudy;
+package com.vvanni.bestbuysearch;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 //Adapter with ViewHolder pattern
 public class ProductListAdapter extends ArrayAdapter<Product> {

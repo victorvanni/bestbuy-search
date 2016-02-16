@@ -1,4 +1,4 @@
-package com.vvanni.listviewstudy;
+package com.vvanni.bestbuysearch;
 
 import org.junit.Test;
 

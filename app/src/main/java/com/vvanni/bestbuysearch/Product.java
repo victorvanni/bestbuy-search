@@ -1,4 +1,4 @@
-package com.vvanni.listviewstudy;
+package com.vvanni.bestbuysearch;
 
 //Simple class just to hold the values of a product, without any method but the constructor
 public class Product {
