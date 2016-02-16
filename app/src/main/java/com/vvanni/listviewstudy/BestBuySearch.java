@@ -1,19 +1,7 @@
 package com.vvanni.listviewstudy;
 
-import android.app.Activity;
-import android.content.Context;
 import android.util.Log;
-import android.widget.ListView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,14 +11,10 @@ import java.net.URL;
 import java.net.*;
 import java.util.ArrayList;
 
-/**
- * Created by Renata on 14/02/2016.
- */
 public class BestBuySearch {
 
     //attributes necessary to buld the search url
     public ArrayList<Product> products;
-    private RequestQueue mQueue;
     private String rawJsonURL;
     private String search;
     private String apiKey;

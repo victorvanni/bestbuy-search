@@ -1,9 +1,5 @@
 package com.vvanni.listviewstudy;
 
-import android.net.ConnectivityManager;
-
-import java.util.List;
-
 //Simple class just to hold the values of a product, without any method but the constructor
 public class Product {
 

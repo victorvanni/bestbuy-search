@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -18,9 +17,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by Renata on 15/02/2016.
- */
 public class SearchActivity extends ListActivity implements AdapterView.OnItemClickListener {
 
 
